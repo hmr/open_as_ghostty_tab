@@ -1,0 +1,6 @@
+# comment
+title="=======    m h    ======="
+command="ssh -A user@host.example.com"
+title="some command"; command="/path/to/command"
+title="zsh (localhost)"; command="zsh -l"
+
