@@ -1,6 +1,8 @@
-# open_as_ghostty_tab
+# open_as_ghostty_tab.applescript
 
-macOS AppleScript utility for opening a command in a new Ghostty tab. It can be run with a command-line argument, or without arguments to show a GUI selector backed by `connect.conf`.
+A macOS AppleScript utility to execute commands in a new Ghostty tab.
+
+It supports command-line arguments, or falls back to a connect.conf-powered GUI selector when run without parameters.
 
 ## Requirements
 
@@ -28,20 +30,21 @@ Run without arguments to show the GUI selector:
 $ osascript open_as_ghostty_tab.applescript
 ```
 
-For GUI mode, create `connect.conf` in the same directory as `open_as_ghostty_tab.applescript`:
+For GUI mode, place `connect.conf` in the same directory as the script:
+:
 
 ```console
 $ cp connect.conf.example connect.conf
 ```
 
-Ghostty launch behavior:
+## How this script launches Ghostty
 
-1. If Ghostty is already running with a front window,
-    - The script creates a new tab in that window, sets `TERM` from the script environment's `$TERM`, applies the selected title, moves the new tab to the end of the tab list, and returns focus to the previously selected tab.
-2. If Ghostty is running without a front window
-    - The script creates a new window with the selected command.
-3. If Ghostty is not running
-    - The script launches Ghostty with the selected command and applies the selected title to the initial tab.
+- If Ghostty is already running <u>with a front window:</u>
+    - creates a new tab in that window
+- If Ghostty is running <u>without a front window:</u>
+    - creates a new window with the specified command
+- If Ghostty is <u>not running:</u>
+    - launches Ghostty with the specified command
 
 ## Configuration
 
@@ -66,16 +69,10 @@ raw command string
 
 - If both `title` and `command` are present, `title` is shown in the menu and `command` is run.
 - If only `command` is present, the command is also used as the menu title.
-- If only `title` is present, it acts like a non-launching menu header. Selecting it returns to the menu.
+- If only `title` is present, it acts like a header in the menu. Selecting it returns to the menu.
 - If neither key is present, the whole line is used as both the menu title and the command.
 
-The parser reads quoted values after `title="` and `command="`. It does not interpret escape sequences inside quoted values.
-
-## Notes
-
-- Only the first command-line argument is used.
-- In GUI mode, `connect.conf` is resolved relative to the script file. If the script is run unsaved from Script Editor, it falls back to `~/Desktop/connect.conf`.
-- Commands are passed to Ghostty as the command string for the new surface.
+The parser reads quoted values after `title="` and `command="`. It does not interpret any escape strings inside quoted values.
 
 ## License
 
