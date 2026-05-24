@@ -59,7 +59,8 @@ title="zsh (localhost)"; command="zsh -l"
 ```
 
 will be shown as:
-![menu](./menu1.png)
+
+![menu](menu1.png)
 
 
 Supported line forms:
